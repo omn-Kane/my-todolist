@@ -20,7 +20,7 @@ Visit http://localhost:8080 in your browser
 5. Must be able to deploy in docker (Missing feature)
 
 ### Tasks
-1. Add missing requirement #4 to the application
+1. Add missing requirement #4 to the application (Done)
 2. Add sufficient test coverage to the application and update readme on howto run the tests
 3. Add missing requirement #5 to the application (Dockerfile and update readme with instructions)
 
@@ -33,4 +33,11 @@ Visit http://localhost:8080 in your browser
 > - Will be nice if you can git tag the tasks by number
 
 ### Solution
+Starting:
+Fixed a spelling mistake, 'What shoud I do?' to 'What should I do?'
+
+Task 1:
+front-end - Converted all todos that gets generated, from plain text into forms, allowing each todo to updated(be edited) via a basic form post.
+back-end - Added a post handler for edits of a specific todo item, this handler will replace the existing item's value with the new value.
+
 Explain what you have done here and why...

@@ -27,6 +27,15 @@ app.get('/todo', function(req, res) {
     res.redirect('/todo');
 })
 
+
+/* Edits an item from the to do list */
+.post('/todo/edit/:id', urlencodedParser, function(req, res) {
+    if (req.params.id != '') {
+        todolist[req.params.id] = req.body[`edittodo-${req.params.id}`]
+    }
+    res.redirect('/todo');
+})
+
 /* Redirects to the to do list if the page requested is not found */
 .use(function(req, res, next){
     res.redirect('/todo');
