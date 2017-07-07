@@ -52,5 +52,15 @@ Added JSDOM to interpret the response from the server.
 Updated the app to make it a slight bit easier to test.
 Added tests to test the API's responses for all 4 request types ('/todo', '/todo/add', '/todo/delete/:id', '/todo/edit/:id').
 
+Task 3:
+Install Docker: https://docs.docker.com/engine/installation/.
+To build docker image: `docker build -t nodejs-todo .`
+To run docker image: `docker run -p 8080:8080 -d nodejs-todo`
+Navigate to `http://localhost:8080` to see the app running under docker.
+To stop docker image: `docker ps` grab the Container ID corresponding with the 'nodejs-todo' image then `docker stop ${ContainerID}`
+
+Updated package.json to have the start script.
+Added the Dockerfile with instructions to run app.
+
 
 Explain what you have done here and why...
