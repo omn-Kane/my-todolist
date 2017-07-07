@@ -15,9 +15,9 @@
             <li>
                 <form action="/todo/edit/<%= index %>" method="post">
                     <a href="/todo/delete/<%= index %>">✘</a>
-                    <span><%- todo %></span>
-                    <input type="text" name="edittodo-<%= index %>" id="edittodo-<%= index %>" placeholder="Update Value"/>
-                    <input type="submit" value="Update"/>
+                    <span id="span-todo-<%= index %>"><%- todo %></span>
+                    <input type="text" name="edittodo-<%= index %>" id="edittodo" placeholder="Update Value"/>
+                    <input type="submit" id="edit-submit-<%= index %>" value="Update"/>
                 </form>
             </li>
         <% }); %>
@@ -27,7 +27,7 @@
             <p>
                 <label for="newtodo">What should I do?</label>
                 <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" />
+                <input type="submit" id="new-submit"/>
             </p>
         </form>
     </body>

@@ -1,14 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+var express = require('express');
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const app = express();
+var app = express();
 
-let todolist = [];
+var todolist = [];
 
 /* The to do list and the form are displayed */
 app.get('/todo', function(req, res) {
-    res.render('todo.ejs', { todolist, clickHandler:"func1();" });
+    res.render('todo.ejs', { todolist: todolist, clickHandler: "func1();" });
 })
 
 /* Adding an item to the to do list */
@@ -31,7 +31,7 @@ app.get('/todo', function(req, res) {
 /* Edits an item from the to do list */
 .post('/todo/edit/:id', urlencodedParser, function(req, res) {
     if (req.params.id != '') {
-        todolist[req.params.id] = req.body[`edittodo-${req.params.id}`]
+        todolist[req.params.id] = req.body['edittodo']
     }
     res.redirect('/todo');
 })
@@ -42,3 +42,5 @@ app.get('/todo', function(req, res) {
 })
 
 .listen(8080);
+
+module.exports = app;
