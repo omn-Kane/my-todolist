@@ -15,8 +15,8 @@
             <li>
                 <form class="edit-todo-form" action="/todo/edit/<%= index %>" method="post">
                     <a href="/todo/delete/<%= index %>">✘</a>
-                    <span id="span-todo-<%= index %>"><%- todo %></span>
-                    <input type="text" name="edittodo-<%= index %>" id="edittodo" placeholder="Update Value"/>
+                    <span id="span-todo-<%= index %>"><%= todo %></span>
+                    <input type="text" name="edittodo" id="edittodo-<%= index %>" placeholder="Update Value"/>
                     <input type="submit" id="edit-submit-<%= index %>" value="Update"/>
                 </form>
             </li>

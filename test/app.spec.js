@@ -1,9 +1,13 @@
 var server = require('../app');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var JSDOM = require('jsdom').JSDOM;
+var jsdom = require('jsdom');
+
+var JSDOM = jsdom.JSDOM;
+var VirtualConsole = jsdom.VirtualConsole;
 
 var should = chai.should();
+var expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('App', function() {
@@ -141,7 +145,40 @@ describe('App', function() {
         });
     });
 
+    describe('XSS attacks should not work', function() {
+        it('should not allow XSS when adding a ToDo item', function(done) {
+            var theScript = '<script>alert("you have been pwned")</script>';
+            chai.request(server)
+                .post('/todo/add')
+                .type('form')
+                .send({'newtodo': theScript})
+                .end(function(err, res) {
+                    res.should.have.status(200);
+                    var virtualConsole = new VirtualConsole();
+                    virtualConsole.on("jsdomError", function() { chai.assert.fail(Error, null, 'Error was thrown by JSDOM'); });
+                    var dom = new JSDOM(res.text, { virtualConsole: virtualConsole, runScripts: "dangerously" });
+                    // this will confirm that HTML encoding has happened.
+                    dom.window.document.getElementById("span-todo-1").should.not.equal(theScript);
+                    done();
+                });
+        });
 
-    // for later use
-    // const dom = new JSDOM(`<body><script>document.body.appendChild(document.createElement("hr"));</script></body>`, { runScripts: "dangerously" });
+        it('should not allow XSS when adding a ToDo item, 2nd test', function(done) {
+            var theScript = '<script>window.onload = function() {document.getElementById("newtodo").value = "You got pwned!";document.getElementById("new-submit").click();};</script>';
+            chai.request(server)
+                .post('/todo/add')
+                .type('form')
+                .send({'newtodo': theScript})
+                .end(function(err, res) {
+                    res.should.have.status(200);
+                    // console.log(res.text);
+                    var virtualConsole = new VirtualConsole();
+                    virtualConsole.on("jsdomError", function() { chai.assert.fail(Error, null, 'Error was thrown by JSDOM'); });
+                    var dom = new JSDOM(res.text, { virtualConsole: virtualConsole, runScripts: "dangerously" });
+                    // this will confirm that HTML encoding has happened.
+                    dom.window.document.getElementById("span-todo-2").should.not.equal(theScript);
+                    done();
+                });
+        });
+    });
 });

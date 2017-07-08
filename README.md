@@ -25,8 +25,8 @@ Visit http://localhost:8080 in your browser
 3. Add missing requirement #5 to the application (Dockerfile and update readme with instructions) (Done)
 
 ## Bonus
-4. Display test coverage after tests are executed
-5. Find and fix the XSS vulnerability in the application. Also make sure that it wont happen again by including a test.
+4. Display test coverage after tests are executed (Done)
+5. Find and fix the XSS vulnerability in the application. Also make sure that it wont happen again by including a test. (Done)
 
 > ## Notes
 > - Update the code as needed and document what you have done in the readme below
@@ -77,4 +77,18 @@ Updates:
 - Added more tests to test all areas of app.js.
 - Updated app.js to have better if checks inside of /todo/delete/:id and /todo/edit/:id to ensure that non-existant ToDos can't be removed or edited.
 
-Explain what you have done here and why...
+### Task 5:
+Instructions:
+- `npm install`
+- `npm test` this will show that 2 new tests were added to test XSS.
+- `npm start`
+- Enter `<script>alert("you have been pwned")</script>` into the ToDo list. No Popup should appear.
+- Enter `<script>window.onload = function() {document.getElementById("newtodo").value = "You got pwned!";document.getElementById("new-submit").click();};</script>`.
+The page should NOT go into an infinite loop adding 'you have been pwned' to your ToDo list.
+- Edit the todo.ejs's `<%= todo %>` to `<%- todo %>` and repeat above tests to see the XSS happen.
+
+Updates:
+- Added helmet which does a couple of security updates to the headers.
+- Updated the .ejs to use <%= (which does a proper HTML encoding) instead of <%- inside of the span element.
+- Fixed a bug where you could no longer edit your ToDo items on the front-end, even though the response in npm tests were correctly editing the ToDo.
+- Added 2 tests that checks if the `new JSDOM()` throws an error, which means you are trying to do 'window.alert' or other things. Also confirmed that the response does not contain the above 2 scripts.

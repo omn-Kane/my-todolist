@@ -1,8 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var helmet = require('helmet');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var app = express();
+app.use(helmet());
 
 var todolist = [];
 
@@ -31,7 +33,7 @@ app.get('/todo', function(req, res) {
 /* Edits an item from the to do list */
 .post('/todo/edit/:id', urlencodedParser, function(req, res) {
     if (typeof todolist[req.params.id] !== 'undefined') {
-        todolist[req.params.id] = req.body['edittodo']
+        todolist[req.params.id] = req.body['edittodo'];
     }
     res.redirect('/todo');
 })
