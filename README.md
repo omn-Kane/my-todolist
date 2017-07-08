@@ -66,5 +66,15 @@ Updates:
 - Updated package.json to have the start script.
 - Added the Dockerfile with instructions to run app.
 
+### Task 4:
+Instructions:
+- `npm install`
+- `npm test`
+
+Updates:
+- Added istanbul to add code coverage.
+- Updated `npm test` command to run tests and produce code coverage report.
+- Added more tests to test all areas of app.js.
+- Updated app.js to have better if checks inside of /todo/delete/:id and /todo/edit/:id to ensure that non-existant ToDos can't be removed or edited.
 
 Explain what you have done here and why...

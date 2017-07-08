@@ -21,7 +21,7 @@ app.get('/todo', function(req, res) {
 
 /* Deletes an item from the to do list */
 .get('/todo/delete/:id', function(req, res) {
-    if (req.params.id != '') {
+    if (typeof todolist[req.params.id] !== 'undefined') {
         todolist.splice(req.params.id, 1);
     }
     res.redirect('/todo');
@@ -30,7 +30,7 @@ app.get('/todo', function(req, res) {
 
 /* Edits an item from the to do list */
 .post('/todo/edit/:id', urlencodedParser, function(req, res) {
-    if (req.params.id != '') {
+    if (typeof todolist[req.params.id] !== 'undefined') {
         todolist[req.params.id] = req.body['edittodo']
     }
     res.redirect('/todo');

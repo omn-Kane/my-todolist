@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test/*.spec.js"
+    "test": "istanbul cover _mocha -- -R spec"
   },
   "devDependencies": {
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
+    "istanbul": "^0.4.5",
     "jsdom": "^11.1.0",
     "mocha": "^3.4.2"
   },
