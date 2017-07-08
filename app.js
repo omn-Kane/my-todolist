@@ -9,7 +9,7 @@ app.use(helmet());
 var todolist = [];
 
 /* The to do list and the form are displayed */
-app.get('/todo', function(req, res) {
+var server = app.get('/todo', function(req, res) {
     res.render('todo.ejs', { todolist: todolist, clickHandler: "func1();" });
 })
 
@@ -45,4 +45,4 @@ app.get('/todo', function(req, res) {
 
 .listen(8080);
 
-module.exports = app;
+module.exports = {app: app, server: server};

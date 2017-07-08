@@ -92,3 +92,26 @@ Updates:
 - Updated the .ejs to use <%= (which does a proper HTML encoding) instead of <%- inside of the span element.
 - Fixed a bug where you could no longer edit your ToDo items on the front-end, even though the response in npm tests were correctly editing the ToDo.
 - Added 2 tests that checks if the `new JSDOM()` throws an error, which means you are trying to do 'window.alert' or other things. Also confirmed that the response does not contain the above 2 scripts.
+
+### Task 6:
+This is a self imposed task based on the fact that there was a bug inside of the .ejs file relating to the editing of a ToDo.
+
+Instructions:
+- `npm install`
+- `npm run test:integration` This might fail, continue running until you see success.*
+- Revert the bugfix done in Task 5: Edit todo.ejs `name=edittodo` to `name=edittodo-<%= index %>`
+- `npm run test:integration` This will fail stating `expected '' to equal 'UpdatedToDo'`, because the app expects the body of the /todo/edit/:id post to contain `edittodo` and not `edittodo-<%= index %>`.
+
+Updates:
+- Added phantom to assist with integration testing.
+- Added app.integration.js which runs a couple of phantom tests.
+- Updated the app to export the listener so that we can open & close the app inside of the integration tests.
+
+Notes:
+- The Tasks before this was correct in stating that there was no problems when doing the tests, because chai-http tests the API and NOT the front-end.
+- *The phantom tests will sometimes fail because of out of order execution of the commands/tests. Currently I have not found a way to ensure that the phantom tests runs in the correct order/timing, which is the reason it fails sometimes.
+- Phantom allows us to be able to do front-end tests (full integration tests), which is able to pickup bugs like the one fixed inside of todo.ejs.
+
+## Notes:
+- Currently there is still a need for the normal `npm run test:mocha` which uses chai-http & JSDOM, as it consistent.
+- In the future I will look more into phantom to resolve the out of order execution of commands/tests.
