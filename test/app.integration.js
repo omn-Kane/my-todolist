@@ -27,6 +27,10 @@ describe('App in Headless mode', function() {
         }).catch(catchFunction);
     });
 
+    after(function() {
+        phInstance.exit();
+    });
+
     describe('Test App Load in headless mode', function() {
         // confirm the server is up and running
         it('Check TodoList Title', function(done) {
